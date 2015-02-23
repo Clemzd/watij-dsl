@@ -1,0 +1,304 @@
+grammar fil.emn.watij.Watij with org.eclipse.xtext.common.Terminals
+
+generate watij "http://www.xtext.org/example/watij/Watij"
+import "http://www.eclipse.org/emf/2002/Ecore" as ecore
+
+//Root
+Program:
+	include=Include
+	(procedure+=Procedure)* & ((mainProcedure+=Block)*';');
+
+//The browser choice 	
+Include:
+	'browser = require ' browser=Browser ';';
+	
+// Functions that can be called in the main program
+Procedure:
+	'procedure' name=ID '(' (parameter+=Parameter)* ')'
+	'{' 
+		block+=Block* ';'
+	'}'
+;
+
+CallProcedure:
+	procedure=[Procedure]'('(parameter+=Parameter)*')'
+;
+
+Block:
+	(var=Variable | varS=VariableString | varI=VariableInt | varB=VariableBool | loop=Loop | conditional=Conditional | begin=Begin | call=CallProcedure)
+;
+
+// parameters in procedure
+Parameter:
+	name+=ID (', ' name+=ID)*
+;
+
+Loop:
+	'do'
+	'{'
+		(block+=Block)*';'
+	'}'
+	'while(' cond=Condition ')';
+	
+Conditional:
+	'if''(' cond=Condition ')'
+	'{'
+		(block+=Block)*';'
+	'}'
+(
+	'else'
+		'{'
+		(block+=Block)*';'
+	'}')?
+;
+
+Condition:
+	expression=Expression
+;
+
+Expression:
+	AlgoExpression | BooleanExpression
+;
+
+AlgoExpression:
+	minus=MINUS_OP? sub1=SubExpressionInt (op=ALGO_OP right=SubExpressionInt)?
+;
+
+BooleanExpression:
+    not1=NOT_OP? (stringBExp=StringBooleanExpression | boolBExp=BoolBooleanExpression | intBExp=IntBooleanExpression)
+;
+
+StringBooleanExpression:
+	 sub1=SubExpressionString (op=BOOL_OP right=StringBooleanExpression)?
+;
+
+IntBooleanExpression:
+	 sub1=SubExpressionInt (op=BOOL_OP right=IntBooleanExpression)?
+;
+
+BoolBooleanExpression:
+	 sub1=SubExpressionBool (op=BOOL_OP right=BoolBooleanExpression)?
+;
+
+SubExpressionInt:
+	int=INT |  varInt=[VariableInt]
+;
+
+SubExpressionString:
+	string=STRING | varString=[VariableString]
+;
+
+SubExpressionBool:
+	bool=BOOL | varBool=[VariableBool]
+;
+
+//Start syntax + first url
+Begin:
+	'browser' operation+=Operation+;
+
+/*Definitions of operations*/
+Operation:
+	goto=Goto | click=Click | fill=Fill | select=Select | close=Close;
+
+	//Change of url
+Goto:
+	'.goto(' url=URL ')'
+;
+
+	//Fill in something
+Fill:
+	'.fill(' findMethod=FindMethod '=' reference=SubExpressionString ', ' (value= STRING | INT) ')'
+;
+
+	//Click on a button
+Click: 
+	'.click(' findMethod=FindMethod '=' reference=SubExpressionString ')'
+;
+
+Select:
+	'.select(' findMethod=FindMethod '=' reference=SubExpressionString ', ' (optionText=STRING) ')'
+;
+
+Read:
+	'.read(' ( ('type='type=ElementType) | (findMethod=FindMethod '=' reference=SubExpressionString) ) ')'
+;
+
+	//Ending operation	
+Close:
+	'.close()';
+
+enum FindMethod:
+	ID='id' | NAME="name" | TEXT='text' | SRC='src'
+;
+	//The different browsers
+enum Browser:
+	IE='InternetExplorer' | FIREFOX='Firefox' | CHROME='Chrome'
+; 
+	
+enum ElementType:
+	checkbox='Checkbox' | image='Image' | champs='Champs'
+;
+
+Variable:
+	'var' name=ID '=' ('browser'varRead=Read)
+;
+
+VariableString:
+	'var' name=ID '=' string=STRING
+;
+
+VariableInt:
+	'var' name=ID '=' int=INT
+;
+
+VariableBool:
+	'var' name=ID '=' bool=BOOL
+;
+
+OP:
+	ALGO_OP | BOOL_OP
+;
+
+UNARY_OP:
+	NOT_OP | MINUS_OP
+;
+
+terminal ALGO_OP:
+	"/" | "*" | "+" | "-" | ">" | "<"
+;
+
+terminal BOOL_OP:
+	"&&" | "||" | "==" | "!="
+;
+
+terminal NOT_OP:
+	"!"
+;
+
+terminal MINUS_OP:
+	 "(-)"
+;
+
+terminal BOOL:
+	'true' | 'false'
+;	
+	
+terminal URL:
+('a'..'z')+ '://' // Protocol
+ 
+    ( // Hostname
+    (
+        ('0'..'9')+ '.' ('0'..'9')+ '.' ('0'..'9')+ '.' ('0'..'9')+
+    ) |
+    (	
+        ('a'..'z'|'A'..'Z')
+        (
+            'a'..'z'|'A'..'Z'|
+            '0'..'9'|
+            '$'|
+            '-'|
+            '_'|
+            (
+                '\\'
+                ('0'..'9'|'a'..'f'|'A'..'F')
+                ('0'..'9'|'a'..'f'|'A'..'F')
+            ) |
+            (
+                '%'
+                ('0'..'9')
+                ('0'..'9')
+            )
+        )*
+        (
+            '.'
+            ('a'..'z'|'A'..'Z')
+            (
+                'a'..'z'|'A'..'Z'|
+                '0'..'9'|
+                '$'|
+                '-'|
+                '_'|
+                (
+                    '\\'
+                    ('0'..'9'|'a'..'f'|'A'..'F')
+                    ('0'..'9'|'a'..'f'|'A'..'F')
+                ) |
+                (
+                    '%'
+                    ('0'..'9')
+                    ('0'..'9')
+                )
+            )*
+        )*
+    )
+)
+(':' ('0'..'9')+)? // Portnumber
+ 
+    ('/'
+    (
+        'a'..'z'|'A'..'Z'|
+        '0'..'9'|
+        '$'|
+        '-'|
+        '_'|
+        '~'|
+        '+'|
+        '.'|
+        (
+            '\\'
+            ('0'..'9'|'a'..'f'|'A'..'F')
+            ('0'..'9'|'a'..'f'|'A'..'F')
+        ) |
+        (
+            '%'
+            ('0'..'9')
+            ('0'..'9')
+        )
+    )*
+)* // Path
+ 
+    ('?'
+    (
+        'a'..'z'|'A'..'Z'|
+        '0'..'9'|
+        '$'|
+        '-'|
+        '_'|
+        '='|
+        '&'|
+        ';'|
+        (
+            '\\'
+            ('0'..'9'|'a'..'f'|'A'..'F')
+            ('0'..'9'|'a'..'f'|'A'..'F')
+        ) |
+        (
+            '%'
+            ('0'..'9')
+            ('0'..'9')
+            )
+        )+
+ 
+        ('+'
+        (
+            'a'..'z'|'A'..'Z'|
+            '0'..'9'|
+            '$'|
+            '-'|
+            '_'|
+            '='|
+            '&'|
+            ';'|
+            (
+                '\\'
+                ('0'..'9'|'a'..'f'|'A'..'F')
+                ('0'..'9'|'a'..'f'|'A'..'F')
+            ) |
+            (
+                '%'
+                ('0'..'9')
+                ('0'..'9')
+            )
+        )+
+    )*
+)?; // Query
