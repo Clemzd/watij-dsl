@@ -6,48 +6,48 @@
     <extension
             point="org.eclipse.ui.editors">
         <editor
-            class="fil.emn.watij.ui.WatijExecutableExtensionFactory:org.eclipse.xtext.ui.editor.XtextEditor"
+            class="fil.emn.ui.WatijExecutableExtensionFactory:org.eclipse.xtext.ui.editor.XtextEditor"
             contributorClass="org.eclipse.ui.editors.text.TextEditorActionContributor"
             default="true"
             extensions="watij"
-            id="fil.emn.watij.Watij"
+            id="fil.emn.Watij"
             name="Watij Editor">
         </editor>
     </extension>
     <extension
         point="org.eclipse.ui.handlers">
         <handler
-            class="fil.emn.watij.ui.WatijExecutableExtensionFactory:org.eclipse.xtext.ui.editor.hyperlinking.OpenDeclarationHandler"
+            class="fil.emn.ui.WatijExecutableExtensionFactory:org.eclipse.xtext.ui.editor.hyperlinking.OpenDeclarationHandler"
             commandId="org.eclipse.xtext.ui.editor.hyperlinking.OpenDeclaration">
             <activeWhen>
                 <reference
-                    definitionId="fil.emn.watij.Watij.Editor.opened">
+                    definitionId="fil.emn.Watij.Editor.opened">
                 </reference>
             </activeWhen>
         </handler>
         <handler
-            class="fil.emn.watij.ui.WatijExecutableExtensionFactory:org.eclipse.xtext.ui.editor.handler.ValidateActionHandler"
-            commandId="fil.emn.watij.Watij.validate">
+            class="fil.emn.ui.WatijExecutableExtensionFactory:org.eclipse.xtext.ui.editor.handler.ValidateActionHandler"
+            commandId="fil.emn.Watij.validate">
          <activeWhen>
             <reference
-                    definitionId="fil.emn.watij.Watij.Editor.opened">
+                    definitionId="fil.emn.Watij.Editor.opened">
             </reference>
          </activeWhen>
       	</handler>
       	<!-- copy qualified name -->
         <handler
-            class="fil.emn.watij.ui.WatijExecutableExtensionFactory:org.eclipse.xtext.ui.editor.copyqualifiedname.EditorCopyQualifiedNameHandler"
+            class="fil.emn.ui.WatijExecutableExtensionFactory:org.eclipse.xtext.ui.editor.copyqualifiedname.EditorCopyQualifiedNameHandler"
             commandId="org.eclipse.xtext.ui.editor.copyqualifiedname.EditorCopyQualifiedName">
             <activeWhen>
-				<reference definitionId="fil.emn.watij.Watij.Editor.opened" />
+				<reference definitionId="fil.emn.Watij.Editor.opened" />
             </activeWhen>
         </handler>
         <handler
-            class="fil.emn.watij.ui.WatijExecutableExtensionFactory:org.eclipse.xtext.ui.editor.copyqualifiedname.OutlineCopyQualifiedNameHandler"
+            class="fil.emn.ui.WatijExecutableExtensionFactory:org.eclipse.xtext.ui.editor.copyqualifiedname.OutlineCopyQualifiedNameHandler"
             commandId="org.eclipse.xtext.ui.editor.copyqualifiedname.OutlineCopyQualifiedName">
             <activeWhen>
             	<and>
-            		<reference definitionId="fil.emn.watij.Watij.XtextEditor.opened" />
+            		<reference definitionId="fil.emn.Watij.XtextEditor.opened" />
 	                <iterate>
 						<adapt type="org.eclipse.xtext.ui.editor.outline.IOutlineNode" />
 					</iterate>
@@ -56,22 +56,22 @@
         </handler>
     </extension>
     <extension point="org.eclipse.core.expressions.definitions">
-        <definition id="fil.emn.watij.Watij.Editor.opened">
+        <definition id="fil.emn.Watij.Editor.opened">
             <and>
                 <reference definitionId="isActiveEditorAnInstanceOfXtextEditor"/>
                 <with variable="activeEditor">
                     <test property="org.eclipse.xtext.ui.editor.XtextEditor.languageName" 
-                        value="fil.emn.watij.Watij" 
+                        value="fil.emn.Watij" 
                         forcePluginActivation="true"/>
                 </with>        
             </and>
         </definition>
-        <definition id="fil.emn.watij.Watij.XtextEditor.opened">
+        <definition id="fil.emn.Watij.XtextEditor.opened">
             <and>
                 <reference definitionId="isXtextEditorActive"/>
                 <with variable="activeEditor">
                     <test property="org.eclipse.xtext.ui.editor.XtextEditor.languageName" 
-                        value="fil.emn.watij.Watij" 
+                        value="fil.emn.Watij" 
                         forcePluginActivation="true"/>
                 </with>        
             </and>
@@ -80,33 +80,33 @@
     <extension
             point="org.eclipse.ui.preferencePages">
         <page
-            class="fil.emn.watij.ui.WatijExecutableExtensionFactory:org.eclipse.xtext.ui.editor.preferences.LanguageRootPreferencePage"
-            id="fil.emn.watij.Watij"
+            class="fil.emn.ui.WatijExecutableExtensionFactory:org.eclipse.xtext.ui.editor.preferences.LanguageRootPreferencePage"
+            id="fil.emn.Watij"
             name="Watij">
-            <keywordReference id="fil.emn.watij.ui.keyword_Watij"/>
+            <keywordReference id="fil.emn.ui.keyword_Watij"/>
         </page>
         <page
-            category="fil.emn.watij.Watij"
-            class="fil.emn.watij.ui.WatijExecutableExtensionFactory:org.eclipse.xtext.ui.editor.syntaxcoloring.SyntaxColoringPreferencePage"
-            id="fil.emn.watij.Watij.coloring"
+            category="fil.emn.Watij"
+            class="fil.emn.ui.WatijExecutableExtensionFactory:org.eclipse.xtext.ui.editor.syntaxcoloring.SyntaxColoringPreferencePage"
+            id="fil.emn.Watij.coloring"
             name="Syntax Coloring">
-            <keywordReference id="fil.emn.watij.ui.keyword_Watij"/>
+            <keywordReference id="fil.emn.ui.keyword_Watij"/>
         </page>
         <page
-            category="fil.emn.watij.Watij"
-            class="fil.emn.watij.ui.WatijExecutableExtensionFactory:org.eclipse.xtext.ui.editor.templates.XtextTemplatePreferencePage"
-            id="fil.emn.watij.Watij.templates"
+            category="fil.emn.Watij"
+            class="fil.emn.ui.WatijExecutableExtensionFactory:org.eclipse.xtext.ui.editor.templates.XtextTemplatePreferencePage"
+            id="fil.emn.Watij.templates"
             name="Templates">
-            <keywordReference id="fil.emn.watij.ui.keyword_Watij"/>
+            <keywordReference id="fil.emn.ui.keyword_Watij"/>
         </page>
     </extension>
     <extension
             point="org.eclipse.ui.propertyPages">
         <page
-            class="fil.emn.watij.ui.WatijExecutableExtensionFactory:org.eclipse.xtext.ui.editor.preferences.LanguageRootPreferencePage"
-            id="fil.emn.watij.Watij"
+            class="fil.emn.ui.WatijExecutableExtensionFactory:org.eclipse.xtext.ui.editor.preferences.LanguageRootPreferencePage"
+            id="fil.emn.Watij"
             name="Watij">
-            <keywordReference id="fil.emn.watij.ui.keyword_Watij"/>
+            <keywordReference id="fil.emn.ui.keyword_Watij"/>
             <enabledWhen>
 	            <adapt type="org.eclipse.core.resources.IProject"/>
 			</enabledWhen>
@@ -116,14 +116,14 @@
     <extension
         point="org.eclipse.ui.keywords">
         <keyword
-            id="fil.emn.watij.ui.keyword_Watij"
+            id="fil.emn.ui.keyword_Watij"
             label="Watij"/>
     </extension>
     <extension
          point="org.eclipse.ui.commands">
       <command
             description="Trigger expensive validation"
-            id="fil.emn.watij.Watij.validate"
+            id="fil.emn.Watij.validate"
             name="Validate">
       </command>
       <!-- copy qualified name -->
@@ -144,12 +144,12 @@
         <menuContribution
             locationURI="popup:#TextEditorContext?after=group.edit">
              <command
-                 commandId="fil.emn.watij.Watij.validate"
+                 commandId="fil.emn.Watij.validate"
                  style="push"
                  tooltip="Trigger expensive validation">
             <visibleWhen checkEnabled="false">
                 <reference
-                    definitionId="fil.emn.watij.Watij.Editor.opened">
+                    definitionId="fil.emn.Watij.Editor.opened">
                 </reference>
             </visibleWhen>
          </command>  
@@ -159,7 +159,7 @@
          	<command commandId="org.eclipse.xtext.ui.editor.copyqualifiedname.EditorCopyQualifiedName" 
          		style="push" tooltip="Copy Qualified Name">
             	<visibleWhen checkEnabled="false">
-                	<reference definitionId="fil.emn.watij.Watij.Editor.opened" />
+                	<reference definitionId="fil.emn.Watij.Editor.opened" />
             	</visibleWhen>
          	</command>  
          </menuContribution>
@@ -167,7 +167,7 @@
          	<command commandId="org.eclipse.xtext.ui.editor.copyqualifiedname.EditorCopyQualifiedName"
             	style="push" tooltip="Copy Qualified Name">
             	<visibleWhen checkEnabled="false">
-                	<reference definitionId="fil.emn.watij.Watij.Editor.opened" />
+                	<reference definitionId="fil.emn.Watij.Editor.opened" />
             	</visibleWhen>
          	</command>  
          </menuContribution>
@@ -176,7 +176,7 @@
 				style="push" tooltip="Copy Qualified Name">
          		<visibleWhen checkEnabled="false">
 	            	<and>
-	            		<reference definitionId="fil.emn.watij.Watij.XtextEditor.opened" />
+	            		<reference definitionId="fil.emn.Watij.XtextEditor.opened" />
 						<iterate>
 							<adapt type="org.eclipse.xtext.ui.editor.outline.IOutlineNode" />
 						</iterate>
@@ -189,7 +189,7 @@
 		<menuContribution locationURI="popup:#TextEditorContext?endof=group.find">
 			<command commandId="org.eclipse.xtext.ui.editor.FindReferences">
 				<visibleWhen checkEnabled="false">
-                	<reference definitionId="fil.emn.watij.Watij.Editor.opened">
+                	<reference definitionId="fil.emn.Watij.Editor.opened">
                 	</reference>
             	</visibleWhen>
 			</command>
@@ -197,11 +197,11 @@
 	</extension>
 	<extension point="org.eclipse.ui.handlers">
 	    <handler
-            class="fil.emn.watij.ui.WatijExecutableExtensionFactory:org.eclipse.xtext.ui.editor.findrefs.FindReferencesHandler"
+            class="fil.emn.ui.WatijExecutableExtensionFactory:org.eclipse.xtext.ui.editor.findrefs.FindReferencesHandler"
             commandId="org.eclipse.xtext.ui.editor.FindReferences">
             <activeWhen>
                 <reference
-                    definitionId="fil.emn.watij.Watij.Editor.opened">
+                    definitionId="fil.emn.Watij.Editor.opened">
                 </reference>
             </activeWhen>
         </handler>
@@ -212,19 +212,19 @@
 	<extension
 		point="org.eclipse.emf.ecore.extension_parser">
 		<parser
-			class="fil.emn.watij.ui.WatijExecutableExtensionFactory:org.eclipse.xtext.resource.IResourceFactory"
+			class="fil.emn.ui.WatijExecutableExtensionFactory:org.eclipse.xtext.resource.IResourceFactory"
 			type="watij">
 		</parser>
 	</extension>
 	<extension point="org.eclipse.xtext.extension_resourceServiceProvider">
         <resourceServiceProvider
-            class="fil.emn.watij.ui.WatijExecutableExtensionFactory:org.eclipse.xtext.ui.resource.IResourceUIServiceProvider"
+            class="fil.emn.ui.WatijExecutableExtensionFactory:org.eclipse.xtext.ui.resource.IResourceUIServiceProvider"
             uriExtension="watij">
         </resourceServiceProvider>
     </extension>
 
 
-	<!-- marker definitions for fil.emn.watij.Watij -->
+	<!-- marker definitions for fil.emn.Watij -->
 	<extension
 	        id="watij.check.fast"
 	        name="Watij Problem"
@@ -250,7 +250,7 @@
    <extension
          point="org.eclipse.xtext.builder.participant">
       <participant
-            class="fil.emn.watij.ui.WatijExecutableExtensionFactory:org.eclipse.xtext.builder.IXtextBuilderParticipant"
+            class="fil.emn.ui.WatijExecutableExtensionFactory:org.eclipse.xtext.builder.IXtextBuilderParticipant"
             fileExtensions="watij"
             >
       </participant>
@@ -258,21 +258,21 @@
    <extension
             point="org.eclipse.ui.preferencePages">
         <page
-            category="fil.emn.watij.Watij"
-            class="fil.emn.watij.ui.WatijExecutableExtensionFactory:org.eclipse.xtext.builder.preferences.BuilderPreferencePage"
-            id="fil.emn.watij.Watij.compiler.preferencePage"
+            category="fil.emn.Watij"
+            class="fil.emn.ui.WatijExecutableExtensionFactory:org.eclipse.xtext.builder.preferences.BuilderPreferencePage"
+            id="fil.emn.Watij.compiler.preferencePage"
             name="Compiler">
-            <keywordReference id="fil.emn.watij.ui.keyword_Watij"/>
+            <keywordReference id="fil.emn.ui.keyword_Watij"/>
         </page>
     </extension>
     <extension
             point="org.eclipse.ui.propertyPages">
         <page
-            category="fil.emn.watij.Watij"
-            class="fil.emn.watij.ui.WatijExecutableExtensionFactory:org.eclipse.xtext.builder.preferences.BuilderPreferencePage"
-            id="fil.emn.watij.Watij.compiler.propertyPage"
+            category="fil.emn.Watij"
+            class="fil.emn.ui.WatijExecutableExtensionFactory:org.eclipse.xtext.builder.preferences.BuilderPreferencePage"
+            id="fil.emn.Watij.compiler.propertyPage"
             name="Compiler">
-            <keywordReference id="fil.emn.watij.ui.keyword_Watij"/>
+            <keywordReference id="fil.emn.ui.keyword_Watij"/>
             <enabledWhen>
 	            <adapt type="org.eclipse.core.resources.IProject"/>
 			</enabledWhen>
@@ -284,11 +284,11 @@
 	<extension
 		point="org.eclipse.ui.handlers">
 		<handler 
-			class="fil.emn.watij.ui.WatijExecutableExtensionFactory:org.eclipse.xtext.ui.editor.outline.quickoutline.ShowQuickOutlineActionHandler"
+			class="fil.emn.ui.WatijExecutableExtensionFactory:org.eclipse.xtext.ui.editor.outline.quickoutline.ShowQuickOutlineActionHandler"
 			commandId="org.eclipse.xtext.ui.editor.outline.QuickOutline">
 			<activeWhen>
 				<reference
-					definitionId="fil.emn.watij.Watij.Editor.opened">
+					definitionId="fil.emn.Watij.Editor.opened">
 				</reference>
 			</activeWhen>
 		</handler>
@@ -308,33 +308,33 @@
 				style="push"
 				tooltip="Open Quick Outline">
 				<visibleWhen checkEnabled="false">
-					<reference definitionId="fil.emn.watij.Watij.Editor.opened"/>
+					<reference definitionId="fil.emn.Watij.Editor.opened"/>
 				</visibleWhen>
 			</command>
 		</menuContribution>
 	</extension>
-    <!-- quickfix marker resolution generator for fil.emn.watij.Watij -->
+    <!-- quickfix marker resolution generator for fil.emn.Watij -->
     <extension
             point="org.eclipse.ui.ide.markerResolution">
         <markerResolutionGenerator
-            class="fil.emn.watij.ui.WatijExecutableExtensionFactory:org.eclipse.xtext.ui.editor.quickfix.MarkerResolutionGenerator"
-            markerType="fil.emn.watij.ui.watij.check.fast">
+            class="fil.emn.ui.WatijExecutableExtensionFactory:org.eclipse.xtext.ui.editor.quickfix.MarkerResolutionGenerator"
+            markerType="fil.emn.ui.watij.check.fast">
             <attribute
                 name="FIXABLE_KEY"
                 value="true">
             </attribute>
         </markerResolutionGenerator>
         <markerResolutionGenerator
-            class="fil.emn.watij.ui.WatijExecutableExtensionFactory:org.eclipse.xtext.ui.editor.quickfix.MarkerResolutionGenerator"
-            markerType="fil.emn.watij.ui.watij.check.normal">
+            class="fil.emn.ui.WatijExecutableExtensionFactory:org.eclipse.xtext.ui.editor.quickfix.MarkerResolutionGenerator"
+            markerType="fil.emn.ui.watij.check.normal">
             <attribute
                 name="FIXABLE_KEY"
                 value="true">
             </attribute>
         </markerResolutionGenerator>
         <markerResolutionGenerator
-            class="fil.emn.watij.ui.WatijExecutableExtensionFactory:org.eclipse.xtext.ui.editor.quickfix.MarkerResolutionGenerator"
-            markerType="fil.emn.watij.ui.watij.check.expensive">
+            class="fil.emn.ui.WatijExecutableExtensionFactory:org.eclipse.xtext.ui.editor.quickfix.MarkerResolutionGenerator"
+            markerType="fil.emn.ui.watij.check.expensive">
             <attribute
                 name="FIXABLE_KEY"
                 value="true">
@@ -344,11 +344,11 @@
    	<!-- Rename Refactoring -->
 	<extension point="org.eclipse.ui.handlers">
 		<handler 
-			class="fil.emn.watij.ui.WatijExecutableExtensionFactory:org.eclipse.xtext.ui.refactoring.ui.DefaultRenameElementHandler"
+			class="fil.emn.ui.WatijExecutableExtensionFactory:org.eclipse.xtext.ui.refactoring.ui.DefaultRenameElementHandler"
 			commandId="org.eclipse.xtext.ui.refactoring.RenameElement">
 			<activeWhen>
 				<reference
-					definitionId="fil.emn.watij.Watij.Editor.opened">
+					definitionId="fil.emn.Watij.Editor.opened">
 				</reference>
 			</activeWhen>
 		</handler>
@@ -360,7 +360,7 @@
                style="push">
             <visibleWhen checkEnabled="false">
                <reference
-                     definitionId="fil.emn.watij.Watij.Editor.opened">
+                     definitionId="fil.emn.Watij.Editor.opened">
                </reference>
             </visibleWhen>
          </command>
@@ -368,29 +368,29 @@
    </extension>
    <extension point="org.eclipse.ui.preferencePages">
 	    <page
-	        category="fil.emn.watij.Watij"
-	        class="fil.emn.watij.ui.WatijExecutableExtensionFactory:org.eclipse.xtext.ui.refactoring.ui.RefactoringPreferencePage"
-	        id="fil.emn.watij.Watij.refactoring"
+	        category="fil.emn.Watij"
+	        class="fil.emn.ui.WatijExecutableExtensionFactory:org.eclipse.xtext.ui.refactoring.ui.RefactoringPreferencePage"
+	        id="fil.emn.Watij.refactoring"
 	        name="Refactoring">
-	        <keywordReference id="fil.emn.watij.ui.keyword_Watij"/>
+	        <keywordReference id="fil.emn.ui.keyword_Watij"/>
 	    </page>
 	</extension>
 
   <extension point="org.eclipse.compare.contentViewers">
-    <viewer id="fil.emn.watij.Watij.compare.contentViewers"
-            class="fil.emn.watij.ui.WatijExecutableExtensionFactory:org.eclipse.xtext.ui.compare.InjectableViewerCreator"
+    <viewer id="fil.emn.Watij.compare.contentViewers"
+            class="fil.emn.ui.WatijExecutableExtensionFactory:org.eclipse.xtext.ui.compare.InjectableViewerCreator"
             extensions="watij">
     </viewer>
   </extension>
   <extension point="org.eclipse.compare.contentMergeViewers">
-    <viewer id="fil.emn.watij.Watij.compare.contentMergeViewers"
-            class="fil.emn.watij.ui.WatijExecutableExtensionFactory:org.eclipse.xtext.ui.compare.InjectableViewerCreator"
+    <viewer id="fil.emn.Watij.compare.contentMergeViewers"
+            class="fil.emn.ui.WatijExecutableExtensionFactory:org.eclipse.xtext.ui.compare.InjectableViewerCreator"
             extensions="watij" label="Watij Compare">
      </viewer>
   </extension>
   <extension point="org.eclipse.ui.editors.documentProviders">
-    <provider id="fil.emn.watij.Watij.editors.documentProviders"
-            class="fil.emn.watij.ui.WatijExecutableExtensionFactory:org.eclipse.xtext.ui.editor.model.XtextDocumentProvider"
+    <provider id="fil.emn.Watij.editors.documentProviders"
+            class="fil.emn.ui.WatijExecutableExtensionFactory:org.eclipse.xtext.ui.editor.model.XtextDocumentProvider"
             extensions="watij">
     </provider>
   </extension>

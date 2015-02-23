@@ -19,8 +19,8 @@ Require-Bundle: fil.emn.watij;visibility:=reexport,
  org.eclipse.compare
 Import-Package: org.apache.log4j
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
-Export-Package: fil.emn.watij.ui.quickfix,
- fil.emn.watij.ui.contentassist,
- fil.emn.watij.ui.contentassist.antlr,
- fil.emn.watij.ui.internal
-Bundle-Activator: fil.emn.watij.ui.internal.WatijActivator
+Export-Package: fil.emn.ui.quickfix,
+ fil.emn.ui.contentassist,
+ fil.emn.ui.contentassist.antlr,
+ fil.emn.ui.internal
+Bundle-Activator: fil.emn.ui.internal.WatijActivator

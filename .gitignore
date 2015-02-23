@@ -1,5 +1,4 @@
 *.class
-*.classpath
 *bin/*
 .metadata
 
@@ -18,5 +17,7 @@ hs_err_pid*
 *-gen*
 
 # Models
-*model*
+*generated*
+
+.xtend
 

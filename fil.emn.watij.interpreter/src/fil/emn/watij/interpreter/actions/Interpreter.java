@@ -12,8 +12,8 @@ import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.IWorkbenchWindowActionDelegate;
 
+import fil.emn.watij.Program;
 import fil.emn.watij.interpreter.model.Model;
-import fil.emn.watij.watij.Program;
 
 /**
  * Our sample action implements workbench action delegate. The action proxy will

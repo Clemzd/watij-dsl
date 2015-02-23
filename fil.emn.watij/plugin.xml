@@ -5,8 +5,8 @@
 
   <extension point="org.eclipse.emf.ecore.generated_package">
     <package 
-       uri = "http://www.xtext.org/example/watij/Watij" 
-       class = "fil.emn.watij.watij.WatijPackage"
+       uri = "http://www.emn.fil/Watij" 
+       class = "fil.emn.watij.WatijPackage"
        genModel = "model/generated/Watij.genmodel" /> 
 	
   </extension>

@@ -21,15 +21,15 @@ Require-Bundle: org.eclipse.xtext;visibility:=reexport,
  org.objectweb.asm;bundle-version="[5.0.1,6.0.0)";resolution:=optional
 Import-Package: org.apache.log4j
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
-Export-Package: fil.emn.watij,
- fil.emn.watij.services,
- fil.emn.watij.watij,
- fil.emn.watij.watij.impl,
- fil.emn.watij.watij.util,
- fil.emn.watij.serializer,
- fil.emn.watij.parser.antlr,
- fil.emn.watij.parser.antlr.internal,
- fil.emn.watij.validation,
- fil.emn.watij.scoping,
- fil.emn.watij.generator,
- fil.emn.watij.formatting
+Export-Package: fil.emn,
+ fil.emn.services,
+ fil.emn.watij,
+ fil.emn.watij.impl,
+ fil.emn.watij.util,
+ fil.emn.serializer,
+ fil.emn.parser.antlr,
+ fil.emn.parser.antlr.internal,
+ fil.emn.validation,
+ fil.emn.scoping,
+ fil.emn.generator,
+ fil.emn.formatting
