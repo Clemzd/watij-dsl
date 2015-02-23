@@ -18,6 +18,7 @@ hs_err_pid*
 
 # Models
 *generated*
+*plugin.xml_gen*
 
 .xtend
 
