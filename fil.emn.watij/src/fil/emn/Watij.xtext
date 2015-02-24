@@ -54,7 +54,7 @@ Conditional:
 ;
 
 Condition:
-		 compare=CompareExpression | boolean=BooleanExpression
+		  => (boolean=BooleanExpression) | (compare=CompareExpression)
 ;
 
 ComputeExpression:
