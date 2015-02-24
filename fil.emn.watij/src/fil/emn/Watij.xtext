@@ -42,27 +42,27 @@ Loop:
 	'while(' cond=Condition ')';
 	
 Conditional:
-	'if''(' cond=Condition ')'
+	'if''(' condition=Condition ')'
 	'{'
 		(block+=Block)*';'
 	'}'
 (
 	'else'
 		'{'
-		(block+=Block)*';'
+		(blockElse+=Block)*';'
 	'}')?
 ;
 
 Condition:
-		  => (boolean=BooleanExpression) | (compare=CompareExpression)
+		  (compare=CompareExpression)| (=>boolean=BooleanExpression)
 ;
 
 ComputeExpression:
-	minusOp=MINUS_OP? sub1=SubExpressionInt (computeOp=COMPUTE_OP right=ComputeExpression)?
+	minusOp=MINUS_OP? subExpression=SubExpressionInt (computeOp=COMPUTE_OP right=ComputeExpression)?
 ;
 
 CompareExpression:
-	computeOperation=ComputeExpression (compareOp=COMPARE_OP right=ComputeExpression)?
+	computeExpression=ComputeExpression (compareOp=COMPARE_OP right=ComputeExpression)?
 ;
 
 BooleanExpression:
@@ -70,15 +70,15 @@ BooleanExpression:
 ;
 
 StringBooleanExpression:
-	 notOp=NOT_OP? sub1=SubExpressionString (boolOp=BOOL_OP right=StringBooleanExpression)?
+	 notOp=NOT_OP? SubExpressionString=SubExpressionString (boolOp=BOOL_OP right=StringBooleanExpression)?
 ;
 
 IntBooleanExpression:
-	 notOp=NOT_OP? left=ComputeExpression (boolOp=BOOL_OP right=IntBooleanExpression)?
+	 notOp=NOT_OP? computeExpression=ComputeExpression (boolOp=BOOL_OP right=IntBooleanExpression)?
 ;
 
 BoolBooleanExpression:
-	 notOp=NOT_OP? left=SubExpressionBool (boolOp=BOOL_OP right=BoolBooleanExpression)?
+	 notOp=NOT_OP? SubExpressionBool=SubExpressionBool (boolOp=BOOL_OP right=BoolBooleanExpression)?
 ;
 
 SubExpressionInt:
