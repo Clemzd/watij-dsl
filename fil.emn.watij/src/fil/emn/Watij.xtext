@@ -54,31 +54,31 @@ Conditional:
 ;
 
 Condition:
-	expression=Expression
+		 compare=CompareExpression | boolean=BooleanExpression
 ;
 
-Expression:
-	AlgoExpression | BooleanExpression
+ComputeExpression:
+	minusOp=MINUS_OP? sub1=SubExpressionInt (computeOp=COMPUTE_OP right=ComputeExpression)?
 ;
 
-AlgoExpression:
-	minus=MINUS_OP? sub1=SubExpressionInt (op=ALGO_OP right=SubExpressionInt)?
+CompareExpression:
+	computeOperation=ComputeExpression (compareOp=COMPARE_OP right=ComputeExpression)?
 ;
 
 BooleanExpression:
-    not1=NOT_OP? (stringBExp=StringBooleanExpression | boolBExp=BoolBooleanExpression | intBExp=IntBooleanExpression)
+     (stringBooleanExp=StringBooleanExpression | boolBooleanExp=BoolBooleanExpression | intBooleanExp=IntBooleanExpression)
 ;
 
 StringBooleanExpression:
-	 sub1=SubExpressionString (op=BOOL_OP right=StringBooleanExpression)?
+	 notOp=NOT_OP? sub1=SubExpressionString (boolOp=BOOL_OP right=StringBooleanExpression)?
 ;
 
 IntBooleanExpression:
-	 sub1=SubExpressionInt (op=BOOL_OP right=IntBooleanExpression)?
+	 notOp=NOT_OP? left=ComputeExpression (boolOp=BOOL_OP right=IntBooleanExpression)?
 ;
 
 BoolBooleanExpression:
-	 sub1=SubExpressionBool (op=BOOL_OP right=BoolBooleanExpression)?
+	 notOp=NOT_OP? left=SubExpressionBool (boolOp=BOOL_OP right=BoolBooleanExpression)?
 ;
 
 SubExpressionInt:
@@ -164,8 +164,16 @@ UNARY_OP:
 	NOT_OP | MINUS_OP
 ;
 
-terminal ALGO_OP:
-	"/" | "*" | "+" | "-" | ">" | "<"
+ALGO_OP:
+	COMPUTE_OP | COMPARE_OP
+;
+
+terminal COMPUTE_OP: 
+	"/" | "*" | "+" | "-" 
+;
+
+terminal COMPARE_OP:
+	">" | "<"
 ;
 
 terminal BOOL_OP:
@@ -181,7 +189,7 @@ terminal MINUS_OP:
 ;
 
 terminal BOOL:
-	'true' | 'false'
+	"true" | "false"
 ;	
 	
 terminal URL:
