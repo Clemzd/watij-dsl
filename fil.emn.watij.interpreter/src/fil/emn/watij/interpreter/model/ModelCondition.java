@@ -16,7 +16,7 @@ public class ModelCondition {
 		CompareExpression compareExpression = condition.getCompare();
 		BooleanExpression booleanExpression = condition.getBoolean();
 
-		if (compareExpression!=null) {
+		if (compareExpression != null) {
 			ComputeExpression leftExpression = (ComputeExpression) compareExpression.getComputeExpression();
 			// LEFT
 			int left = calculateComputeExpression(leftExpression);
@@ -30,12 +30,12 @@ public class ModelCondition {
 					right = leftExpression.getSubExpression().getInt();
 				}
 				switch (compareExpression.getCompareOp()) {
-					case "<":
-						conditionResult = left < right;
-						break;
-					case ">":
-						conditionResult = left > right;
-						break;
+				case "<":
+					conditionResult = left < right;
+					break;
+				case ">":
+					conditionResult = left > right;
+					break;
 				}
 			} else {
 				// ONLY LEFT
@@ -54,35 +54,34 @@ public class ModelCondition {
 		return conditionResult;
 	}
 
-
 	/**
 	 * Evaluation a string-composed boolean expression
+	 * 
 	 * @param expression
 	 */
-	private static boolean evaluateStringBooleanExpression(
-			StringBooleanExpression expression) {
+	private static boolean evaluateStringBooleanExpression(StringBooleanExpression expression) {
 		String left;
-		if(expression.getSubExpressionString().getVarString()!=null){
+		if (expression.getSubExpressionString().getVarString() != null) {
 			left = expression.getSubExpressionString().getVarString().getString();
-		}else{
+		} else {
 			left = expression.getSubExpressionString().getString();
 		}
 		boolean result = false;
-		if(expression.getBoolOp()!=null){
-			boolean right = evaluateStringBooleanExpression(expression.getRight()); 
-			switch(expression.getBoolOp()){
-				case "&&":
-					result = true;
-					break;
-				case "||":
-					result = true;
-					break;
-				case "==":
-					result = left.equals(right);
-					break;
-				case "!=":
-					result = !left.equals(right);
-					break;
+		if (expression.getBoolOp() != null) {
+			boolean right = evaluateStringBooleanExpression(expression.getRight());
+			switch (expression.getBoolOp()) {
+			case "&&":
+				result = true;
+				break;
+			case "||":
+				result = true;
+				break;
+			case "==":
+				result = left.equals(right);
+				break;
+			case "!=":
+				result = !left.equals(right);
+				break;
 			}
 		}
 		// Not
@@ -91,29 +90,30 @@ public class ModelCondition {
 		}
 		return result;
 	}
-	
+
 	/**
 	 * Evaluation an int-composed boolean expression
+	 * 
 	 * @param expression
 	 */
 	private static boolean evaluateIntBooleanExpression(IntBooleanExpression expression) {
 		boolean left = calculateComputeExpression(expression.getComputeExpression()) == 0;
 		boolean result = false;
-		if(expression.getBoolOp()!=null){
-			boolean right = evaluateIntBooleanExpression(expression.getRight()); 
-			switch(expression.getBoolOp()){
-				case "&&":
-					result = left && right;
-					break;
-				case "||":
-					result = left || right;
-					break;
-				case "==":
-					result = left == right;
-					break;
-				case "!=":
-					result = left != right;
-					break;
+		if (expression.getBoolOp() != null) {
+			boolean right = evaluateIntBooleanExpression(expression.getRight());
+			switch (expression.getBoolOp()) {
+			case "&&":
+				result = left && right;
+				break;
+			case "||":
+				result = left || right;
+				break;
+			case "==":
+				result = left == right;
+				break;
+			case "!=":
+				result = left != right;
+				break;
 			}
 		}
 		// Not
@@ -122,34 +122,35 @@ public class ModelCondition {
 		}
 		return result;
 	}
-	
+
 	/**
 	 * Evaluation an bool-composed boolean expression
+	 * 
 	 * @param expression
 	 */
 	private static boolean evaluateBoolBooleanExpression(BoolBooleanExpression expression) {
 		boolean left;
-		if(expression.getSubExpressionBool().getVarBool()!=null){
+		if (expression.getSubExpressionBool().getVarBool() != null) {
 			left = "true".equals(expression.getSubExpressionBool().getVarBool().getBool());
-		}else{
+		} else {
 			left = "true".equals(expression.getSubExpressionBool().getBool());
 		}
 		boolean result = false;
-		if(expression.getBoolOp()!=null){
-			boolean right = evaluateBoolBooleanExpression(expression.getRight()); 
-			switch(expression.getBoolOp()){
-				case "&&":
-					result = left && right;
-					break;
-				case "||":
-					result = left || right;
-					break;
-				case "==":
-					result = left == right;
-					break;
-				case "!=":
-					result = left != right;
-					break;
+		if (expression.getBoolOp() != null) {
+			boolean right = evaluateBoolBooleanExpression(expression.getRight());
+			switch (expression.getBoolOp()) {
+			case "&&":
+				result = left && right;
+				break;
+			case "||":
+				result = left || right;
+				break;
+			case "==":
+				result = left == right;
+				break;
+			case "!=":
+				result = left != right;
+				break;
 			}
 		}
 		// Not
@@ -158,7 +159,7 @@ public class ModelCondition {
 		}
 		return result;
 	}
-	
+
 	/**
 	 * Return the number calculated from a computeExpression
 	 * 
@@ -196,4 +197,3 @@ public class ModelCondition {
 		return left;
 	}
 }
-	

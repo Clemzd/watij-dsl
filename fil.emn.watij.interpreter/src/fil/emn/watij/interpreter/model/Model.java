@@ -82,7 +82,7 @@ public class Model {
 	public void execute() {
 		EList<Block> mainProcedure = program.getMainProcedure();
 		for (Block block : mainProcedure) {
-			ModelBlock.execute(this, block);			
+			ModelBlock.execute(this, block);
 		}
 	}
 
