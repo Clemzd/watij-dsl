@@ -46,9 +46,10 @@ public class Interpreter implements IWorkbenchWindowActionDelegate {
 			ResourceSet rs = new ResourceSetImpl();
 			Resource resource = rs.getResource(URI.createURI(file.getFullPath().toString()), true);
 			EObject program = resource.getContents().get(0);
-			
+
 			// start interpretation
-			Model watijModel = Model.getInstance((Program) program);
+			// FUN FACT : watij means "Web Automation In Java"
+			final Model watijModel = new Model((Program) program);
 			watijModel.execute();
 		} catch (Throwable e) {
 			e.printStackTrace();

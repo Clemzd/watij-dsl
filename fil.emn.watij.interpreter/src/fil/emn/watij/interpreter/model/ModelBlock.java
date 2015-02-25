@@ -5,7 +5,6 @@ import fil.emn.watij.Operation;
 
 public class ModelBlock {
 	public static void execute(Model model, Block block) {
-		System.out.println(block.getLoop());
 		if (block.getBegin() != null) {
 			for (Operation operation : block.getBegin().getOperation()) {
 				ModelOperation.execute(model, operation);

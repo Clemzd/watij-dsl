@@ -108,20 +108,20 @@ Goto:
 
 	//Fill in something
 Fill:
-	'.fill(' findMethod=FindMethod '=' reference=SubExpressionString ', ' (value= STRING | INT) ')'
+	'.fill(' (findMethod=FindMethod '=')? reference=SubExpressionString ', ' (value= STRING | INT) ')'
 ;
 
 	//Click on a button
 Click: 
-	'.click(' findMethod=FindMethod '=' reference=SubExpressionString ')'
+	'.click(' (findMethod=FindMethod '=')? reference=SubExpressionString ')'
 ;
 
 Select:
-	'.select(' findMethod=FindMethod '=' reference=SubExpressionString ', ' (optionText=STRING) ')'
+	'.select(' optionText=SubExpressionString ')'
 ;
 
 Read:
-	'.read(' ( ('type='type=ElementType) | (findMethod=FindMethod '=' reference=SubExpressionString) ) ')'
+	'.read(' ( ('type='type=ElementType) | (findMethod=FindMethod '=')? reference=SubExpressionString) ')'
 ;
 
 	//Ending operation	
@@ -129,7 +129,7 @@ Close:
 	'.close()';
 
 enum FindMethod:
-	ID='id' | NAME="name" | TEXT='text' | SRC='src'
+	unspecified | id | name | text | src
 ;
 	//The different browsers
 enum Browser:

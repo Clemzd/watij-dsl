@@ -5,7 +5,7 @@ import fil.emn.watij.Operation;
 public class ModelOperation {
 	public static void execute(Model model, Operation operation) {
 		if (operation.getGoto() != null) {
-			model.getWebdriver().get(operation.getGoto().getUrl());
+			ModelGoto.execute(model, operation.getGoto());
 		} else if (operation.getClick() != null) {
 			ModelClick.execute(model, operation.getClick());
 		} else if (operation.getFill() != null) {
