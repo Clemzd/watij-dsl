@@ -10,8 +10,8 @@ import fil.emn.watij.interpreter.model.html.EnumTag;
 public class FindWebElement {
 	/** xpath requests constants. */
 	private final static String XPATH_BEGIN = "//";
-	private final static String XPATH_CONTAINS_ALL_ATTRIBUTES = "[@*[contains(.,'";
-	private final static String XPATH_CONTAINS_INNER_TEXT = "[text()[contains(.,'";
+	private final static String XPATH_CONTAINS_ALL_ATTRIBUTES = "[@*[contains(translate(.,'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz'),'";
+	private final static String XPATH_CONTAINS_INNER_TEXT = "[text()[contains(translate(.,'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz'),'";
 	private final static String XPATH_END = "')]]";
 	private final static String XPATH_SEPARATOR = " | ";
 
@@ -55,16 +55,16 @@ public class FindWebElement {
 				.append(XPATH_BEGIN)
 				.append(tag.getTagName())
 				.append(XPATH_CONTAINS_ALL_ATTRIBUTES)
-				.append(searchValue)
+				.append(searchValue.toLowerCase())
 				.append(XPATH_END)
 			// research by inner text (eg: <a...>inner text</a>)
 				.append(XPATH_SEPARATOR)
 				.append(XPATH_BEGIN)
 				.append(tag.getTagName())
 				.append(XPATH_CONTAINS_INNER_TEXT)
-				.append(searchValue)
+				.append(searchValue.toLowerCase())
 				.append(XPATH_END);
-			
+			System.out.println(xpathRequest);
 			// we do not add " | " after the last xpath request (otherwise it fails).
 			if (i < tags.length - 1) {
 				xpathRequest.append(XPATH_SEPARATOR);
