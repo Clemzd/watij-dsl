@@ -11,24 +11,22 @@ import fil.emn.watij.VariableInt;
 
 public class ModelCondition {
 
-	public static boolean execute(Condition condition) {
+	public static boolean eval(Condition condition) {
 		boolean conditionResult = false;
 		CompareExpression compareExpression = condition.getCompare();
 		BooleanExpression booleanExpression = condition.getBoolean();
 
+		System.out.println("compareExpression" + compareExpression);
+		System.out.println("booleanExpression" + booleanExpression);
 		if (compareExpression != null) {
 			ComputeExpression leftExpression = (ComputeExpression) compareExpression.getComputeExpression();
 			// LEFT
 			int left = calculateComputeExpression(leftExpression);
+			System.out.println("left is " + left);
 			if (compareExpression.getCompareOp() != null) {
 				// RIGHT
-				int right = 0;
-				if (leftExpression.getSubExpression() instanceof VariableInt) {
-					VariableInt varInt = leftExpression.getSubExpression().getVarInt();
-					right = calculateComputeExpression(varInt.getComputeExpression());
-				} else {
-					right = leftExpression.getSubExpression().getInt();
-				}
+				int right = calculateComputeExpression(compareExpression.getRight());
+				System.out.println("right " + right);
 				switch (compareExpression.getCompareOp()) {
 				case "<":
 					conditionResult = left < right;
@@ -37,11 +35,13 @@ public class ModelCondition {
 					conditionResult = left > right;
 					break;
 				}
+				System.out.println("conditionResult " + conditionResult);
 			} else {
 				// ONLY LEFT
 				conditionResult = left == 0;
 			}
 		} else if (booleanExpression instanceof StringBooleanExpression) {
+			System.out.println("booleanExpression instanceof StringBooleanExpression");
 			StringBooleanExpression expression = (StringBooleanExpression) booleanExpression;
 			conditionResult = evaluateStringBooleanExpression(expression);
 		} else if (booleanExpression instanceof IntBooleanExpression) {
@@ -66,9 +66,11 @@ public class ModelCondition {
 		} else {
 			left = expression.getSubExpressionString().getString();
 		}
+		System.out.println("left string : " + left);
 		boolean result = false;
 		if (expression.getBoolOp() != null) {
 			boolean right = evaluateStringBooleanExpression(expression.getRight());
+			System.out.println("right string : " + right);
 			switch (expression.getBoolOp()) {
 			case "&&":
 				result = true;
@@ -83,6 +85,7 @@ public class ModelCondition {
 				result = !left.equals(right);
 				break;
 			}
+			System.out.println("result : " + result);
 		}
 		// Not
 		if (expression.getNotOp() != null) {

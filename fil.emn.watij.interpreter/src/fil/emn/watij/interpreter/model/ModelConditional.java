@@ -12,7 +12,7 @@ public class ModelConditional {
 		Condition cond = conditional.getCondition();
 
 		// if actions
-		if (ModelCondition.execute(cond)) {
+		if (ModelCondition.eval(cond)) {
 			EList<Block> listBlock = conditional.getBlock();
 			for (Block block : listBlock) {
 				ModelBlock.execute(model, block);

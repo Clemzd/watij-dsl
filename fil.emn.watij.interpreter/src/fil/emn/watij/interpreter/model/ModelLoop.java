@@ -17,6 +17,6 @@ public class ModelLoop {
 			for (Block LoopBlock : listBlock) {
 				ModelBlock.execute(model, LoopBlock);
 			}
-		} while (ModelCondition.execute(cond));
+		} while (ModelCondition.eval(cond));
 	}
 }
