@@ -149,7 +149,7 @@ VariableString:
 ;
 
 VariableInt:
-	'var' name=ID '=' int=INT
+	'var' name=ID '=' computeExpression=ComputeExpression
 ;
 
 VariableBool:

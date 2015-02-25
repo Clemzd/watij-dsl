@@ -25,7 +25,7 @@ public class ModelCondition {
 				int right = 0;
 				if (leftExpression.getSubExpression() instanceof VariableInt) {
 					VariableInt varInt = leftExpression.getSubExpression().getVarInt();
-					right = varInt.getInt();
+					right = calculateComputeExpression(varInt.getComputeExpression());
 				} else {
 					right = leftExpression.getSubExpression().getInt();
 				}
@@ -169,7 +169,7 @@ public class ModelCondition {
 		int left = 0;
 		if (expression.getSubExpression() instanceof VariableInt) {
 			VariableInt varInt = expression.getSubExpression().getVarInt();
-			left = varInt.getInt();
+			left = ModelCondition.calculateComputeExpression(varInt.getComputeExpression());
 		} else {
 			left = expression.getSubExpression().getInt();
 		}
