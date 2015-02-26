@@ -96,10 +96,6 @@ public class ModelCondition {
 			}
 			System.out.println("result : " + result);
 		}
-		// Not
-		if (expression.getNotOp() != null) {
-			result = !result;
-		}
 		return result;
 	}
 

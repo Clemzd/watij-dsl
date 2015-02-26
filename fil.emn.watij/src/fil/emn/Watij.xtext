@@ -54,7 +54,7 @@ Conditional:
 ;
 
 Condition:
-		  (compare=CompareExpression)| (=>boolean=BooleanExpression)
+	(compare=CompareExpression)| (=>boolean=BooleanExpression)
 ;
 
 ComputeExpression:
@@ -66,15 +66,15 @@ CompareExpression:
 ;
 
 BooleanExpression:
-     StringBooleanExpression | BoolBooleanExpression
+ 	 stringBooleanExpression=StringBooleanExpression | (=>boolBooleanExpression=BoolBooleanExpression)
 ;
 
 StringBooleanExpression:
-	 notOp=NOT_OP? SubExpressionString=SubExpressionString (boolOp=BOOL_OP right=StringBooleanExpression)?
+	SubExpressionString=SubExpressionString (boolOp=BOOL_OP right=StringBooleanExpression)?
 ;
 
 BoolBooleanExpression:
-	 notOp=NOT_OP? SubExpressionBool=SubExpressionBool (boolOp=BOOL_OP right=BoolBooleanExpression)?
+	    notOp=NOT_OP? SubExpressionBool=SubExpressionBool (boolOp=BOOL_OP right=BoolBooleanExpression)?
 ;
 
 SubExpressionInt:
