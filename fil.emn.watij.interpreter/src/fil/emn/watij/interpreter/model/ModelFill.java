@@ -1,5 +1,7 @@
 package fil.emn.watij.interpreter.model;
 
+import java.util.Map;
+
 import org.openqa.selenium.WebElement;
 
 import fil.emn.watij.Fill;
@@ -10,9 +12,8 @@ public class ModelFill {
 
 	private static EnumTag[] tagsForFill = new EnumTag[] { EnumTag.INPUT };
 
-	public static void execute(Model model, Fill fill) {
-		final String searchValue = model.getSearchValue(fill.getReference());
-		final WebElement element = FindWebElement.find(model, fill.getFindMethod(), searchValue, tagsForFill);
+	public static void execute(Model model, Map<String, Object> envVar, Map<String, Object> envFunction, Fill fill) {
+		final WebElement element = FindWebElement.findElement(model, fill.getFindMethod(), fill.getReference().getString(), tagsForFill);
 		element.sendKeys(fill.getValue());
 	}
 }

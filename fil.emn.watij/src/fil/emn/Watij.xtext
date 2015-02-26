@@ -26,7 +26,7 @@ CallProcedure:
 ;
 
 Block:
-	(var=Variable | varS=VariableString | varI=VariableInt | varB=VariableBool | loop=Loop | conditional=Conditional | begin=Begin | call=CallProcedure)
+	(variableStringOrRead=VariableStringOrRead | varInt=VariableInt | varBoolean=VariableBool | loop=Loop | conditional=Conditional | begin=Begin | call=CallProcedure)
 ;
 
 // parameters in procedure
@@ -89,6 +89,10 @@ SubExpressionString:
 	string=STRING | varString=[VariableString]
 ;
 
+SubExpressionRead:
+	string=STRING | varStringOrRead=[VariableStringOrRead]
+;
+
 SubExpressionBool:
 	bool=BOOL | varBool=[VariableBool]
 ;
@@ -113,7 +117,7 @@ Fill:
 
 	//Click on a button
 Click: 
-	'.click(' (findMethod=FindMethod '=')? reference=SubExpressionString ')'
+	'.click(' (findMethod=FindMethod '=')? reference=(SubExpressionRead) ')'
 ;
 
 Select:
@@ -121,7 +125,7 @@ Select:
 ;
 
 Read:
-	'.read(' ( ('type='type=ElementType) | (findMethod=FindMethod '=')? reference=SubExpressionString) ')'
+	'.read(' ('type='type=ElementType | (findMethod=FindMethod '=')? reference=SubExpressionString) ')'
 ;
 
 	//Ending operation	
@@ -137,15 +141,15 @@ enum Browser:
 ; 
 	
 enum ElementType:
-	checkbox='Checkbox' | image='Image' | champs='Champs'
-;
-
-Variable:
-	'var' name=ID '=' ('browser'varRead=Read)
+	unspecified | checkbox | img
 ;
 
 VariableString:
 	'var' name=ID '=' string=STRING
+;
+
+VariableStringOrRead:
+	'var' name=ID '=' (string=STRING | 'browser'varRead=Read)
 ;
 
 VariableInt:

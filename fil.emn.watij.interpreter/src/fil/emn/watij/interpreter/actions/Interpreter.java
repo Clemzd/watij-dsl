@@ -48,7 +48,7 @@ public class Interpreter implements IWorkbenchWindowActionDelegate {
 			EObject program = resource.getContents().get(0);
 
 			// start interpretation
-			// FUN FACT : watij means "Web Automation In Java"
+			// FUN FACT : watij means "Web Automation Testing In Java"
 			final Model watijModel = new Model((Program) program);
 			watijModel.execute();
 		} catch (Throwable e) {

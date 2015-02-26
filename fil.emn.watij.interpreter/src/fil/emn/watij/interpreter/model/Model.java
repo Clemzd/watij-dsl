@@ -1,5 +1,8 @@
 package fil.emn.watij.interpreter.model;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.eclipse.emf.common.util.EList;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
@@ -7,6 +10,7 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import fil.emn.watij.Block;
 import fil.emn.watij.Include;
 import fil.emn.watij.Program;
+import fil.emn.watij.SubExpressionRead;
 import fil.emn.watij.SubExpressionString;
 
 /**
@@ -41,20 +45,37 @@ public class Model {
 		}
 	}
 
-	public String getSearchValue(SubExpressionString reference) {
-		String value = null;
+	public Object getSearchValue(Map<String, Object> envVar, SubExpressionString reference) {
+		Object value = null;
 		if (reference.getVarString() != null) {
-			// TODO get the value of the variable
-		} else {
+			value = envVar.get(reference.getVarString().getName());
+		}else{
 			value = reference.getString();
+		}
+		return value;
+	}
+	
+	public Object getSearchValue(Map<String, Object> envVar, SubExpressionRead reference) {
+		Object value = null;
+		if (reference.getVarStringOrRead() != null) {
+			value = envVar.get(reference.getVarStringOrRead().getName());
 		}
 		return value;
 	}
 
 	public void execute() {
+		// TODO handle procedures
+		
 		EList<Block> mainProcedure = program.getMainProcedure();
+		/** Create environement. */
+		// Environment of variables, key is the variable name, object is the variable model
+		Map<String, Object> envVar = new HashMap<String, Object>();
+		
+		// Environement of functions, key is the function name, object is the function model
+		Map<String, Object> envFunction = new HashMap<String, Object>();
+		
 		for (Block block : mainProcedure) {
-			ModelBlock.execute(this, block);
+			ModelBlock.execute(this, envVar, envFunction, block);
 		}
 	}
 
