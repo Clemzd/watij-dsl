@@ -15,8 +15,8 @@ public class FindWebElement {
 	/** xpath requests constants. */
 	private final static String XPATH_BEGIN = "//";
 	private final static String XPATH_TYPE = "[@type='";
-	private final static String XPATH_CONTAINS_ALL_ATTRIBUTES = "[@*[contains(.,'";
-	private final static String XPATH_CONTAINS_INNER_TEXT = "[text()[contains(.,'";
+	private final static String XPATH_CONTAINS_ALL_ATTRIBUTES = "[@*[contains(translate(.,'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz'),'";
+	private final static String XPATH_CONTAINS_INNER_TEXT = "[text()[contains(translate(.,'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz'),'";
 	private final static String XPATH_END_APOSTROPHE = "'";
 	private final static String XPATH_END_PARENTHESE = ")";
 	private final static String XPATH_END_SBRACKET = "]";
@@ -141,7 +141,7 @@ public class FindWebElement {
 			.append(XPATH_BEGIN)
 			.append(tag.getTagName())
 			.append(XPATH_CONTAINS_ALL_ATTRIBUTES)
-			.append(searchValue)
+			.append(searchValue.toLowerCase())
 			.append(XPATH_END_APOSTROPHE)
 			.append(XPATH_END_PARENTHESE)
 			.append(XPATH_END_SBRACKET)
@@ -152,7 +152,7 @@ public class FindWebElement {
 			.append(XPATH_BEGIN)
 			.append(tag.getTagName())
 			.append(XPATH_CONTAINS_INNER_TEXT)
-			.append(searchValue)
+			.append(searchValue.toLowerCase())
 			.append(XPATH_END_APOSTROPHE)
 			.append(XPATH_END_PARENTHESE)
 			.append(XPATH_END_SBRACKET)
