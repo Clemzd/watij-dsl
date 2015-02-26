@@ -15,8 +15,8 @@ public class ModelCondition {
 		CompareExpression compareExpression = condition.getCompare();
 		BooleanExpression booleanExpression = condition.getBoolean();
 
-		System.out.println("compareExpression" + compareExpression);
-		System.out.println("booleanExpression" + booleanExpression);
+		System.out.println("\ncompareExpression: " + compareExpression);
+		System.out.println("booleanExpression: " + booleanExpression);
 		if (compareExpression != null) {
 			ComputeExpression leftExpression = (ComputeExpression) compareExpression.getComputeExpression();
 			// LEFT
@@ -81,12 +81,6 @@ public class ModelCondition {
 			boolean right = evaluateStringBooleanExpression(expression.getRight());
 			System.out.println("right string : " + right);
 			switch (expression.getBoolOp()) {
-			case "&&":
-				result = true;
-				break;
-			case "||":
-				result = true;
-				break;
 			case "==":
 				result = left.equals(right);
 				break;
@@ -120,12 +114,6 @@ public class ModelCondition {
 				break;
 			case "||":
 				result = left || right;
-				break;
-			case "==":
-				result = left == right;
-				break;
-			case "!=":
-				result = left != right;
 				break;
 			}
 		}

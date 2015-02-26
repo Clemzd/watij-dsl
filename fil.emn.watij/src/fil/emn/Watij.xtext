@@ -62,7 +62,7 @@ ComputeExpression:
 ;
 
 CompareExpression:
-	computeExpression=ComputeExpression ((compareOp=COMPARE_OP | bool_Op=BOOL_OP) right=ComputeExpression)?
+	computeExpression=ComputeExpression ((compareOp=COMPARE_OP | bool_Op=EQUALITY_OP) right=ComputeExpression)?
 ;
 
 BooleanExpression:
@@ -70,11 +70,11 @@ BooleanExpression:
 ;
 
 StringBooleanExpression:
-	SubExpressionString=SubExpressionString (boolOp=BOOL_OP right=StringBooleanExpression)?
+	SubExpressionString=SubExpressionString (boolOp=EQUALITY_OP right=StringBooleanExpression)?
 ;
 
 BoolBooleanExpression:
-	    notOp=NOT_OP? SubExpressionBool=SubExpressionBool (boolOp=BOOL_OP right=BoolBooleanExpression)?
+	    notOp=NOT_OP? SubExpressionBool=SubExpressionBool (boolOp=AND_OR_OP right=BoolBooleanExpression)?
 ;
 
 SubExpressionInt:
@@ -152,18 +152,6 @@ VariableBool:
 	'var' name=ID '=' bool=BOOL
 ;
 
-OP:
-	ALGO_OP | BOOL_OP
-;
-
-UNARY_OP:
-	NOT_OP | MINUS_OP
-;
-
-ALGO_OP:
-	COMPUTE_OP | COMPARE_OP
-;
-
 terminal COMPUTE_OP: 
 	"/" | "*" | "+" | "-" 
 ;
@@ -172,8 +160,12 @@ terminal COMPARE_OP:
 	">" | "<"
 ;
 
-terminal BOOL_OP:
-	"&&" | "||" | "==" | "!="
+terminal AND_OR_OP:
+	"&&" | "||"
+;
+
+terminal EQUALITY_OP:
+	"==" | "!="
 ;
 
 terminal NOT_OP:
