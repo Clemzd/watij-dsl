@@ -5,7 +5,6 @@ import fil.emn.watij.BooleanExpression;
 import fil.emn.watij.CompareExpression;
 import fil.emn.watij.ComputeExpression;
 import fil.emn.watij.Condition;
-import fil.emn.watij.IntBooleanExpression;
 import fil.emn.watij.StringBooleanExpression;
 import fil.emn.watij.VariableInt;
 
@@ -36,7 +35,20 @@ public class ModelCondition {
 					break;
 				}
 				System.out.println("conditionResult " + conditionResult);
-			} else {
+			} else if(compareExpression.getBool_Op()!= null){
+				// RIGHT
+				int right = calculateComputeExpression(compareExpression.getRight());
+				System.out.println("right " + right);
+				switch (compareExpression.getBool_Op()) {
+				case "==":
+					conditionResult = left == right;
+					break;
+				case "!=":
+					conditionResult = left != right;
+					break;
+				}
+				System.out.println("conditionResult " + conditionResult);
+			}else{
 				// ONLY LEFT
 				conditionResult = left == 0;
 			}
@@ -44,10 +56,7 @@ public class ModelCondition {
 			System.out.println("booleanExpression instanceof StringBooleanExpression");
 			StringBooleanExpression expression = (StringBooleanExpression) booleanExpression;
 			conditionResult = evaluateStringBooleanExpression(expression);
-		} else if (booleanExpression instanceof IntBooleanExpression) {
-			IntBooleanExpression expression = (IntBooleanExpression) booleanExpression;
-			conditionResult = evaluateIntBooleanExpression(expression);
-		} else if (booleanExpression instanceof BoolBooleanExpression) {
+		}  else if (booleanExpression instanceof BoolBooleanExpression) {
 			BoolBooleanExpression expression = (BoolBooleanExpression) booleanExpression;
 			conditionResult = evaluateBoolBooleanExpression(expression);
 		}
@@ -86,38 +95,6 @@ public class ModelCondition {
 				break;
 			}
 			System.out.println("result : " + result);
-		}
-		// Not
-		if (expression.getNotOp() != null) {
-			result = !result;
-		}
-		return result;
-	}
-
-	/**
-	 * Evaluation an int-composed boolean expression
-	 * 
-	 * @param expression
-	 */
-	private static boolean evaluateIntBooleanExpression(IntBooleanExpression expression) {
-		boolean left = calculateComputeExpression(expression.getComputeExpression()) == 0;
-		boolean result = false;
-		if (expression.getBoolOp() != null) {
-			boolean right = evaluateIntBooleanExpression(expression.getRight());
-			switch (expression.getBoolOp()) {
-			case "&&":
-				result = left && right;
-				break;
-			case "||":
-				result = left || right;
-				break;
-			case "==":
-				result = left == right;
-				break;
-			case "!=":
-				result = left != right;
-				break;
-			}
 		}
 		// Not
 		if (expression.getNotOp() != null) {

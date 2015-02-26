@@ -62,19 +62,15 @@ ComputeExpression:
 ;
 
 CompareExpression:
-	computeExpression=ComputeExpression (compareOp=COMPARE_OP right=ComputeExpression)?
+	computeExpression=ComputeExpression ((compareOp=COMPARE_OP | bool_Op=BOOL_OP) right=ComputeExpression)?
 ;
 
 BooleanExpression:
-     StringBooleanExpression | BoolBooleanExpression | IntBooleanExpression
+     StringBooleanExpression | BoolBooleanExpression
 ;
 
 StringBooleanExpression:
 	 notOp=NOT_OP? SubExpressionString=SubExpressionString (boolOp=BOOL_OP right=StringBooleanExpression)?
-;
-
-IntBooleanExpression:
-	 notOp=NOT_OP? computeExpression=ComputeExpression (boolOp=BOOL_OP right=IntBooleanExpression)?
 ;
 
 BoolBooleanExpression:
