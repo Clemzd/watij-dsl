@@ -1,5 +1,7 @@
 package fil.emn.watij.interpreter.model;
 
+import java.util.Map;
+
 import fil.emn.watij.BoolBooleanExpression;
 import fil.emn.watij.BooleanExpression;
 import fil.emn.watij.CompareExpression;
@@ -10,7 +12,7 @@ import fil.emn.watij.VariableInt;
 
 public class ModelCondition {
 
-	public static boolean eval(Condition condition) {
+	public static boolean eval(Map<String, Object> envVar, Condition condition) {
 		boolean conditionResult = false;
 		CompareExpression compareExpression = condition.getCompare();
 		BooleanExpression booleanExpression = condition.getBoolean();
@@ -20,11 +22,11 @@ public class ModelCondition {
 		if (compareExpression != null) {
 			ComputeExpression leftExpression = (ComputeExpression) compareExpression.getComputeExpression();
 			// LEFT
-			int left = calculateComputeExpression(leftExpression);
+			int left = calculateComputeExpression(envVar, leftExpression);
 			System.out.println("left is " + left);
 			if (compareExpression.getCompareOp() != null) {
 				// RIGHT
-				int right = calculateComputeExpression(compareExpression.getRight());
+				int right = calculateComputeExpression(envVar, compareExpression.getRight());
 				System.out.println("right " + right);
 				switch (compareExpression.getCompareOp()) {
 				case "<":
@@ -37,7 +39,7 @@ public class ModelCondition {
 				System.out.println("conditionResult " + conditionResult);
 			} else if(compareExpression.getBool_Op()!= null){
 				// RIGHT
-				int right = calculateComputeExpression(compareExpression.getRight());
+				int right = calculateComputeExpression(envVar, compareExpression.getRight());
 				System.out.println("right " + right);
 				switch (compareExpression.getBool_Op()) {
 				case "==":
@@ -130,11 +132,15 @@ public class ModelCondition {
 	 * @param computeExpression
 	 * @return number
 	 */
-	public static int calculateComputeExpression(ComputeExpression expression) {
+	public static int calculateComputeExpression(Map<String, Object> envVar, ComputeExpression expression) {
 		int left = 0;
-		if (expression.getSubExpression() instanceof VariableInt) {
+		if (expression.getSubExpression().getVarInt() != null) {
 			VariableInt varInt = expression.getSubExpression().getVarInt();
-			left = ModelCondition.calculateComputeExpression(varInt.getComputeExpression());
+			if(varInt.getComputeExpression() != null){
+				left = ModelCondition.calculateComputeExpression(envVar, varInt.getComputeExpression());
+			}else{
+				left = (int) envVar.get(varInt.getName());
+			}
 		} else {
 			left = expression.getSubExpression().getInt();
 		}
@@ -143,7 +149,7 @@ public class ModelCondition {
 			left = -left;
 		}
 		if (expression.getComputeOp() != null) {
-			int right = calculateComputeExpression(expression.getRight());
+			int right = calculateComputeExpression(envVar, expression.getRight());
 			switch (expression.getComputeOp()) {
 			case "+":
 				return left + right;

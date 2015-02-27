@@ -9,6 +9,7 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 
 import fil.emn.watij.Block;
 import fil.emn.watij.Include;
+import fil.emn.watij.Procedure;
 import fil.emn.watij.Program;
 import fil.emn.watij.SubExpressionRead;
 import fil.emn.watij.SubExpressionString;
@@ -64,18 +65,22 @@ public class Model {
 	}
 
 	public void execute() {
-		// TODO handle procedures
+		// Environement of procedure, key is the procedure name, object is the function model
+		Map<String, Procedure> envProcedures = new HashMap<String, Procedure>();
 		
+		/** Sub procedures. */
+		for(Procedure procedure : program.getProcedure()){
+			envProcedures.put(procedure.getName(), procedure);
+		}
+		
+		/** Main procedure. */
 		EList<Block> mainProcedure = program.getMainProcedure();
-		/** Create environement. */
+		
 		// Environment of variables, key is the variable name, object is the variable model
 		Map<String, Object> envVar = new HashMap<String, Object>();
 		
-		// Environement of functions, key is the function name, object is the function model
-		Map<String, Object> envFunction = new HashMap<String, Object>();
-		
 		for (Block block : mainProcedure) {
-			ModelBlock.execute(this, envVar, envFunction, block);
+			ModelBlock.execute(this, envVar, envProcedures, block);
 		}
 	}
 

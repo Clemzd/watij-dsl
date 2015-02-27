@@ -6,6 +6,7 @@ import java.util.Map;
 
 import org.openqa.selenium.WebElement;
 
+import fil.emn.watij.Procedure;
 import fil.emn.watij.Read;
 import fil.emn.watij.interpreter.model.html.EnumInputType;
 import fil.emn.watij.interpreter.model.html.EnumTag;
@@ -13,7 +14,7 @@ import fil.emn.watij.interpreter.model.utils.FindWebElement;
 
 public class ModelRead {
 
-	public static List<WebElement> eval(Model model, Map<String, Object> envVar, Map<String, Object> envFunction, Read read) {
+	public static List<WebElement> eval(Model model, Map<String, Object> envVar, Map<String, Procedure> envProcedure, Read read) {
 		List<WebElement> listWebElement = new ArrayList<WebElement>();
 		switch (read.getType()) {
 		case CHECKBOX:

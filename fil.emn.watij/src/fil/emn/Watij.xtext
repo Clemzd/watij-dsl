@@ -15,14 +15,14 @@ Include:
 	
 // Functions that can be called in the main program
 Procedure:
-	'procedure' name=ID '(' (parameter+=Parameter)* ')'
+	'procedure' name=ID '(' ( parameter+=Parameter (', ' parameter+=Parameter)* )? ')'
 	'{' 
 		block+=Block* ';'
 	'}'
 ;
 
 CallProcedure:
-	procedure=[Procedure]'('(parameter+=Parameter)*')'
+	procedure=[Procedure]'(' ( param+=VariableFunction (', ' param+=VariableFunction)* )? ')'
 ;
 
 Block:
@@ -31,7 +31,7 @@ Block:
 
 // parameters in procedure
 Parameter:
-	name+=ID (', ' name+=ID)*
+	name=ID
 ;
 
 Loop:
@@ -154,6 +154,10 @@ VariableInt:
 
 VariableBool:
 	'var' name=ID '=' bool=BOOL
+;
+
+VariableFunction:
+	valueString=STRING | valueInt=INT | valueBool=BOOL
 ;
 
 terminal COMPUTE_OP: 
