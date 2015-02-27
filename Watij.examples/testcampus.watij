@@ -1,0 +1,15 @@
+browser = require Firefox;
+browser
+	.goto(http://campus.mines-nantes.fr)
+	.click("Connexion")
+	.click("CZAM")
+	.select("Ecole des Mines de Nantes")
+	.click("Cliquez ici pour continuer")
+	.click("Sauvegarder")
+	.fill("username", "cguet12")
+	.fill("password", "********")
+	.click("warn")
+	.click("Connexion")
+	.goto(https://nte.gemtech.fr/campus/course/view.php?id=1415)
+	.close()
+	;

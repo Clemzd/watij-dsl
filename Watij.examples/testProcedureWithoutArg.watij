@@ -1,0 +1,8 @@
+browser = require Firefox;
+
+procedure deposerUneAnnonce(){
+	browser.click("deposer");
+}
+browser.goto(http://www.leboncoin.fr/)
+deposerUneAnnonce()
+;

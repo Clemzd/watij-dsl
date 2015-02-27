@@ -1,0 +1,5 @@
+browser = require Firefox;
+
+browser.goto(http://www.utexas.edu/learn/forms/radio.html)
+var radio = browser.read("Miss")
+browser.click(radio);

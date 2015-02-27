@@ -1,0 +1,5 @@
+browser = require Firefox;
+
+browser.goto(http://www.aliasdmc.fr/coursjavas/cours_javascript95.html)
+var checkboxes = browser.read(type=checkbox)
+browser.click(checkboxes);

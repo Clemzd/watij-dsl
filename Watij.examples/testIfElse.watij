@@ -1,0 +1,15 @@
+browser = require Firefox;
+var hourOfWork = 5
+var daysSinceFacebook = 1
+if(hourOfWork>2)
+{
+	if(daysSinceFacebook>7){
+		browser.goto(https://www.facebook.com);
+	}else{
+		browser.goto(https://www.youtube.com/?hl=fr&gl=FR);
+	};
+}
+else
+{
+	browser.goto(http://docs.seleniumhq.org/docs/03_webdriver.jsp);
+};
